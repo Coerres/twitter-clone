@@ -4,7 +4,7 @@ const router = express.Router();
 
 
 router.get("/", (req, res) => {
-    res.send("you are in user router doing get request");
+    res.send("you are in user router doing GET request");
 });
 
 export default router;
