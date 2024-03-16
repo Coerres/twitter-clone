@@ -1,12 +1,24 @@
 import express from "express";
+import dotenv from "dotenv";
+import mongoose from "mongoose";
 
 const app = express();
-/*
-app.get('/', (req, res) => {
-    res.send("Hello!");
-});
-*/
+dotenv.config();
+
+//Connecting to MongoDB
+const connect = () => {
+    mongoose.set ("strictQuery", false);
+    mongoose
+    .connect(process.env.MONGO)
+    .then(() => {
+        console.log('connect to mongodb database');
+    })
+    .catch(err => {
+        throw err;
+    });
+};
 
 app.listen(8000, () => {
+    connect();
     console.log("Listening to port 8000");
 });
