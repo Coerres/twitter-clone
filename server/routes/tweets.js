@@ -1,10 +1,14 @@
 import express from "express";
 import { verifyToken } from "../verifyToken.js";
-import {createTweet} from "../controllers/tweet.js";
+import { createTweet, deleteTweet } from "../controllers/tweet.js";
 
 
 const router = express.Router();
 
-router.post('/', verifyToken, createTweet);
+// Create a Tweet
+router.post("/", verifyToken, createTweet);
+
+//Delete a Tweet
+router.delete("/:id", verifyToken, deleteTweet);
 
 export default router;
