@@ -1,6 +1,6 @@
 import Tweet from "../models/Tweet.js";
 import { handleError } from "../error.js";
-import { rmSync } from "fs";
+import User from "../models/User.js";
 
 export const createTweet = async (req, res, next) =>{
     const newTweet = new Tweet(req.body);
@@ -37,6 +37,21 @@ export const likeOrDislike = async (req, res, next) =>{
         await tweet.updateOne({$pull: {likes: req.body.id}});
         res.status(200).json("Tweet has been disliked");
      }
+    }catch(err){
+        handleError(500, err);
+    }
+};
+export const getAllTweets = async (req, res, next) =>{
+ 
+    try{
+        const currentUser = await User.findById(req.params.id);
+        const userTweets = await Tweet.find({ userId: currentUSer._id });
+        const followersTweets = await Promise.all(currentUser.following.map((followerId) => {
+            return Tweet.find({ userId: followerId });
+        })
+        );
+
+        res.status(200) .json(userTweets.concat(...followersTweets));
     }catch(err){
         handleError(500, err);
     }
