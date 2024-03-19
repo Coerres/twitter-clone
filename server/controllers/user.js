@@ -1,4 +1,6 @@
 import User from "../models/User.js";
+import { handleError } from "../error.js";
+import Tweet from "../models/Tweet.js";
 
 export const getUser = async (req, res, next) => {
     try{
@@ -34,7 +36,8 @@ export const deleteUser = async (req, res, next) => {
     if(req.params.id === req.user.id){
         try{
             await User.findByIdAndDelete(req.params.id);
-        
+            await Tweet.remove({ userId: req.user.id });
+            
           res.status(200).json("User deleted");
       } catch(err){
           next(err);
@@ -61,7 +64,29 @@ export const follow  = async (req, res, next) => {
                 res.status(403).json("You already follow this user");
             }
             res.status(200).json("Following the user");
-      } catch(err){
+      }   catch(err) {
           next(err);
       }
+};
+export const unFollow  = async (req, res, next) => {
+    
+    try{
+        //user 
+        const user = await User.findById(req,params.id);
+        //current user
+        const currentUser = await User.findById(req.body.id);
+
+        if(currentUser.following.includes(req.params.id)){
+            await user.updateOne({
+                $pull: {followers: req.body.id},
+            });
+
+            await currentUser.updateOne({$pull: {following: req.params.id}});
+        } else {
+            res.status(403).json("You are not following this user");
+        }
+        res.status(200).json("Unfollowing the user");
+  }   catch(err) {
+      next(err);
+  }
 };
