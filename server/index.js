@@ -10,16 +10,15 @@ import tweetRoutes from "./routes/tweets.js";
 const app = express();
 dotenv.config();
 
-//Connecting to MongoDB
 const connect = () => {
-    mongoose.set ("strictQuery", false);
-    mongoose
+  mongoose.set("strictQuery", false);
+  mongoose
     .connect(process.env.MONGO)
     .then(() => {
-        console.log('connect to mongodb database');
+      console.log("connect to mongodb database");
     })
-    .catch(err => {
-        throw err;
+    .catch((err) => {
+      throw err;
     });
 };
 
@@ -30,6 +29,6 @@ app.use("/api/auth", authRoutes);
 app.use("/api/tweets", tweetRoutes);
 
 app.listen(8000, () => {
-    connect();
-    console.log("Listening to port 8000");
+  connect();
+  console.log("Listening to port 8000");
 });
