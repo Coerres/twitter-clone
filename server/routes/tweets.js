@@ -1,6 +1,6 @@
 import express from "express";
 import { verifyToken } from "../verifyToken.js";
-import { createTweet, deleteTweet, likeOrDislike, getAllTweets, getUserTweets } from "../controllers/tweet.js";
+import { createTweet, deleteTweet, likeOrDislike, getAllTweets, getUserTweets, getExploreTweets } from "../controllers/tweet.js";
 
 
 const router = express.Router();
@@ -19,4 +19,7 @@ router.get("/timeline/:id", getAllTweets);
 
 // Get User-Tweets only
 router.get("/user/all/:id", getUserTweets);
+
+// Explore
+router.get("/explore", getExploreTweets);
 export default router;

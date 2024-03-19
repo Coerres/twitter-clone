@@ -68,3 +68,16 @@ export const getUserTweets = async (req, res, next) =>{
         handleError(500, err);
     }
 };
+export const getExploreTweets = async (req, res, next) =>{
+ 
+    try{
+      const  getExploreTweets = await Tweet.find({
+         likes: { $exists: true } }).sort( //Most popular Tweets on top
+        { likes: -1 }
+    );
+
+        res.status(200) .json(getExploreTweets);
+    }catch(err){
+        handleError(500, err);
+    }
+};
