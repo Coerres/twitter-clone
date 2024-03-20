@@ -60,7 +60,7 @@ const Signin = () => {
         className="text-xl py-2 rounded-full px-4"
       />
 
-      <button
+<button
         className="text-xl py-2 rounded-full px-4 bg-blue-500 text-white"
         onClick={handleLogin}
       >
@@ -89,7 +89,7 @@ const Signin = () => {
         className="text-xl py-2 rounded-full px-4"
       />
 
-      <button
+<button
         onClick={handleSignup}
         className="text-xl py-2 rounded-full px-4 bg-blue-500 text-white"
         type="submit"
